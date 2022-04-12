@@ -1,0 +1,52 @@
+{
+  "groups": [
+    {
+      "name": "security",
+      "type": "com.example.expensetracker.auth.models.SecurityProperties",
+      "sourceType": "com.example.expensetracker.auth.models.SecurityProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "security.allow-credentials",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.example.expensetracker.auth.models.SecurityProperties"
+    },
+    {
+      "name": "security.allowed-headers",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.example.expensetracker.auth.models.SecurityProperties"
+    },
+    {
+      "name": "security.allowed-methods",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.example.expensetracker.auth.models.SecurityProperties"
+    },
+    {
+      "name": "security.allowed-origins",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.example.expensetracker.auth.models.SecurityProperties"
+    },
+    {
+      "name": "security.allowed-public-apis",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.example.expensetracker.auth.models.SecurityProperties"
+    },
+    {
+      "name": "security.cookie-properties",
+      "type": "com.example.expensetracker.auth.models.CookieProperties",
+      "sourceType": "com.example.expensetracker.auth.models.SecurityProperties"
+    },
+    {
+      "name": "security.exposed-headers",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.example.expensetracker.auth.models.SecurityProperties"
+    },
+    {
+      "name": "security.firebase-properties",
+      "type": "com.example.expensetracker.auth.models.FirebaseProperties",
+      "sourceType": "com.example.expensetracker.auth.models.SecurityProperties"
+    }
+  ],
+  "hints": []
+}
