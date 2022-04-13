@@ -88,4 +88,16 @@ public class Notification {
     public Date getCreatedDate() {
         return createdDate;
     }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                ", user=" + user +
+                ", trip=" + trip +
+                ", createdDate=" + createdDate +
+                '}';
+    }
 }

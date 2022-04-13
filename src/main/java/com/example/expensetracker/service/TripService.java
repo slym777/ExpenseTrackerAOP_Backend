@@ -75,16 +75,13 @@ public class TripService {
         trip.setUsers(new ArrayList<>());
         trip.setGroupSize(0);
         var users = new ArrayList<>(tripRequest.getUsers());
-        users.forEach(us -> {
-            trip.addUser(userRepository.findUserById(us.getId()).orElseThrow(
-                    () -> new ResourceNotFoundException("User", "userId", us.getId())));
-        });
+        users.forEach(us -> trip.addUser(userRepository.findUserById(us.getId()).orElseThrow(
+                () -> new ResourceNotFoundException("User", "userId", us.getId())))
+        );
 
         tripRepository.save(trip);
 
-        users.forEach(us -> {
-            notificationService.createNotificationForTrip(us, trip);
-        });
+        users.forEach(us -> notificationService.createNotificationForTrip(us, trip));
     }
 
     public TripDto updateTrip(Long tripId, TripDto tripDto) {
