@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,27 +21,21 @@ import java.util.logging.Logger;
 @Component
 public class CacheAspect {
     private static Logger logger = Logger.getLogger(LoggingAspect.class.getName());
-    @Autowired
-    private Ehcache ehcache;
-
-//    @Autowired
-//    public CacheAspect(Ehcache ehcache) {
-//        this.ehcache = ehcache;
-//    }
+    private Map<CacheKey, Object> cache = new HashMap<>();
 
     @Around("@annotation(useCache)")
     public Object cache(ProceedingJoinPoint pjp, UseCache useCache) throws Throwable {
         var cacheKey = new CacheKey(pjp);
 
-        if (ehcache.containsKey(cacheKey)) {
+        if (cache.containsKey(cacheKey)) {
             logger.log(Level.INFO, "[CACHE] HIT! Getting value for key '" + cacheKey.hashCode() + "' from cache.");
-            return ehcache.get(cacheKey);
+            return cache.get(cacheKey);
         }
 
         Object returnedValue = pjp.proceed();
         if (returnedValue != null) {
             logger.log(Level.INFO, "[CACHE] MISSED! Saving value for key '" + cacheKey.hashCode() + "' in cache.");
-            ehcache.put(cacheKey, returnedValue);
+            cache.put(cacheKey, returnedValue);
         }
 
         return returnedValue;
@@ -47,12 +43,7 @@ public class CacheAspect {
 
     @Around("@annotation(flushCache)")
     public Object flush(ProceedingJoinPoint pjp, FlushCache flushCache) throws Throwable {
-        var cacheKey = new CacheKey(pjp);
-
-        if (ehcache.containsKey(cacheKey)) {
-            logger.log(Level.INFO,"[CACHE] Removing value for key '" + cacheKey.hashCode() + "' from cache.");
-            ehcache.remove(cacheKey);
-        }
+        cache.clear();
         return pjp.proceed();
     }
 
